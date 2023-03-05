@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Selection Sort Demo</title>
+</head>
+<body>
+	<h2>Selection Sort Demo</h2>
+	<label>Enter an array of numbers:</label>
+	<input type="text" id="inputArray">
+	<button onclick="sortArray()">Sort</button>
+	<div id="outputArray"></div>
+
+	<script>
+		function sortArray() {
+			var inputArray = document.getElementById("inputArray").value;
+			inputArray = inputArray.split(",").map(Number); // перетворюємо рядок у масив чисел
+			var len = inputArray.length;
+			for (var i = 0; i < len-1; i++) {
+				var minIndex = i;
+				for (var j = i+1; j < len; j++) {
+					if (inputArray[j] < inputArray[minIndex]) {
+						minIndex = j;
+					}
+				}
+				// змінюємо місцями елементи
+				if (minIndex !== i) {
+					var temp = inputArray[i];
+					inputArray[i] = inputArray[minIndex];
+					inputArray[minIndex] = temp;
+				}
+				// відображаємо масив на поточній ітерації, змінені елементи позначаємо жовтим кольором
+				document.getElementById("outputArray").innerHTML += "<br>" + inputArray.join(", ").replace(new RegExp(inputArray[i], 'g'), '<span style="background-color:yellow;">'+inputArray[i]+'</span>').replace(new RegExp(inputArray[minIndex], 'g'), '<span style="background-color:yellow;">'+inputArray[minIndex]+'</span>');
+			}
+			document.getElementById("outputArray").innerHTML += "<br>Sorted Array: " + inputArray.join(", ");
+		}
+	</script>
+</body>
+</html>
